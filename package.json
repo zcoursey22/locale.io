@@ -1,0 +1,26 @@
+{
+  "name": "locale.io",
+  "version": "1.0.0",
+  "description": "Crowdsourced local news and happenings",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start-dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zcoursey22/locale.io.git"
+  },
+  "author": "Zach Coursey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zcoursey22/locale.io/issues"
+  },
+  "homepage": "https://github.com/zcoursey22/locale.io#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "dev-dependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
