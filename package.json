@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/zcoursey22/locale.io#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "moment": "^2.22.2"
   },
   "dev-dependencies": {
     "nodemon": "^1.18.3"
