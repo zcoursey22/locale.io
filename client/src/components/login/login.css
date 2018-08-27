@@ -133,3 +133,22 @@
   margin: 0 auto;
   transition: 0.2 !important;
 }
+
+
+#already-logged-in > div {
+  text-align: center;
+  padding: 10px;
+}
+
+#already-logged-in > div > a {
+  padding: 10px;
+  color: #49e;
+  text-decoration: none;
+  font-size: 26px;
+  transition: 0.2s;
+}
+
+#already-logged-in > div > a:hover {
+  color: #38d;
+  text-decoration: underline;
+}

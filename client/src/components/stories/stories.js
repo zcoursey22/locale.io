@@ -26,6 +26,25 @@ class Stories extends Component {
       });
   }
 
+  componentDidMount() {
+    if (this.props.user.username === null) {
+      this.props.history.push('/');
+    }
+    fetch('/api/stories')
+      .then(res => res.json())
+      .then(stories => {
+        const closeStories = [];
+        stories.forEach(story => {
+          if (Math.abs(story.latitude - this.props.latitude) <= 0.3 && Math.abs(story.longitude - this.props.longitude) <= 0.3) {
+            closeStories.push(story);
+          }
+        });
+        this.setState({
+          stories: closeStories
+        });
+      });
+  }
+
   render() {
     return (
       <div className="Stories">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import './App.css';
 import config from './config.js';
 import Stories from './components/stories/stories';
@@ -10,10 +10,11 @@ class App extends Component {
     super(props);
     this.state = {
       users: [],
-      user: {
-        email: null,
-        username: null,
-        password: null
+      user: JSON.parse(localStorage.getItem("user"))
+        || {
+          email: null,
+          username: null,
+          password: null
       },
       location: null,
       latitude: null,
@@ -87,6 +88,7 @@ class App extends Component {
           this.setState({
             user: this.state.users[i]
           });
+          window.localStorage.setItem('user', JSON.stringify(this.state.users[i]));
           this.props.history.push('/stories');
           return;
         } else if (this.state.users[i].username === info.username) {
@@ -98,7 +100,7 @@ class App extends Component {
   }
 
   signOut() {
-    alert('Logs user out and returns them to the log in page');
+    window.localStorage.removeItem('user');
     this.setState({
       user: {
         email: null,
@@ -115,7 +117,7 @@ class App extends Component {
           <h1 className="App-title">locale.io</h1>
           <div id="user-panel" style={{ display: this.state.user.username ?  'block' : 'none' }}>
             <span id="user">Hello, {this.state.user.username}</span>
-            <span id="log-out" onClick={this.signOut.bind(this)}>Sign out</span>
+            <Link to="/"><span id="log-out" onClick={this.signOut.bind(this)}>Sign out</span></Link>
             <div id="location" style={{ maxWidth: this.state.location ? '300px' : '130px'}}>
               <span>
                 <img src="images/map.png" />
@@ -128,12 +130,10 @@ class App extends Component {
           </div>
         </header>
 
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" render={(props) => <Login signIn={this.signIn.bind(this)} />}/>
-            <Route path="/stories" render={(props) => <Stories latitude={this.state.latitude} longitude={this.state.longitude} />}/>
-          </Switch>
-        </BrowserRouter>
+        <Switch>
+          <Route exact path="/" render={(props) => <Login signIn={this.signIn.bind(this)} user={this.state.user} />}/>
+          <Route path="/stories" render={(props) => <Stories latitude={this.state.latitude} longitude={this.state.longitude} user={this.state.user} history={this.props.history} />}/>
+        </Switch>
 
         <footer className="App-footer">
           <span id="developed-by">Developed by Zach Coursey</span>
