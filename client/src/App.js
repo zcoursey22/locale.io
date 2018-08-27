@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import config from './config.js';
 import Stories from './components/stories/stories';
 import Login from './components/login/login';
 
@@ -12,8 +13,41 @@ class App extends Component {
         username: 'zcoursey22',
         password: 'pass1'
       },
-      location: 'San Francisco, CA'
+      location: null,
+      locationTemp: ''
     }
+  }
+
+  componentDidMount() {
+    const fetching = setInterval(() => {
+      if (this.state.location !== null) {
+        clearInterval(fetching);
+      }
+      if (this.state.locationTemp === '...') {
+        this.setState({
+          locationTemp: ''
+        });
+      } else {
+        this.setState({
+          locationTemp: this.state.locationTemp + '.'
+        });
+      }
+    }, 300);
+  }
+
+  componentWillMount() {
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
+    navigator.geolocation.getCurrentPosition((pos) => {
+      location: fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.coords.latitude},${pos.coords.longitude}&result_type=locality&key=${config.googleMaps}`)
+        .then(res => res.json())
+        .then(city => this.setState({
+          location: city.results[0].formatted_address
+        }));
+    }, null, options);
   }
 
   render() {
@@ -23,7 +57,16 @@ class App extends Component {
           <h1 className="App-title">locale.io</h1>
           <div id="user-panel" style={{ display: this.state.user ?  'block' : 'none' }}>
             <span id="user">Hello, {this.state.user.username}</span>
-            <span id="location"><img src="images/map.png" />{this.state.location}</span>
+            <span id="log-out" onClick={() => alert('Logs user out and returns them to the log in page')}>Sign out</span>
+            <div id="location" style={{ maxWidth: this.state.location ? '300px' : '130px'}}>
+              <span>
+                <img src="images/map.png" />
+                {this.state.location ? this.state.location : 'Locating you'}
+                <span id="loading" style={{ display: this.state.location ? 'none' : 'inline'}}>
+                  {this.state.locationTemp}
+                </span>
+              </span>
+            </div>
           </div>
         </header>
 
