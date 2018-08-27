@@ -8,31 +8,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      users: [],
       user: {
-        email: 'zcoursey22@gmail.com',
-        username: 'zcoursey22',
-        password: 'pass1'
+        email: null,
+        username: null,
+        password: null
       },
       location: null,
       locationTemp: ''
     }
-  }
-
-  componentDidMount() {
-    const fetching = setInterval(() => {
-      if (this.state.location !== null) {
-        clearInterval(fetching);
-      }
-      if (this.state.locationTemp === '...') {
-        this.setState({
-          locationTemp: ''
-        });
-      } else {
-        this.setState({
-          locationTemp: this.state.locationTemp + '.'
-        });
-      }
-    }, 300);
   }
 
   componentWillMount() {
@@ -50,14 +34,81 @@ class App extends Component {
     }, null, options);
   }
 
+  componentDidMount() {
+    fetch('/api/users')
+      .then(res => res.json())
+      .then(users => this.setState({users}));
+
+    const fetching = setInterval(() => {
+      if (this.state.location !== null) {
+        clearInterval(fetching);
+      }
+      if (this.state.locationTemp === '...') {
+        this.setState({
+          locationTemp: ''
+        });
+      } else {
+        this.setState({
+          locationTemp: this.state.locationTemp + '.'
+        });
+      }
+    }, 300);
+  }
+
+  signIn() {
+    const username = document.querySelector('#log-username');
+    const password = document.querySelector('#log-password');
+    let complete = true;
+    if (username.value === '') {
+      username.style.background = '#ffeaea';
+      complete = false;
+    }
+    if (password.value === '') {
+      password.style.background = '#ffeaea';
+      complete = false;
+    }
+    if (!complete) {
+      return;
+    }
+    const info = {
+      username: username.value,
+      password: password.value
+    }
+    for (let i = 0; i < this.state.users.length; i++) {
+      if (this.state.users[i].username === info.username
+        && this.state.users[i].password === info.password) {
+          this.setState({
+            user: this.state.users[i]
+          });
+          alert('User is routed to the story feed');
+          return;
+        } else if (this.state.users[i].username === info.username) {
+          alert('Incorrect password!');
+          return;
+        }
+    }
+    alert('User not found!');
+  }
+
+  signOut() {
+    alert('Logs user out and returns them to the log in page');
+    this.setState({
+      user: {
+        email: null,
+        username: null,
+        password: null
+      }
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">locale.io</h1>
-          <div id="user-panel" style={{ display: this.state.user ?  'block' : 'none' }}>
+          <div id="user-panel" style={{ display: this.state.user.username ?  'block' : 'none' }}>
             <span id="user">Hello, {this.state.user.username}</span>
-            <span id="log-out" onClick={() => alert('Logs user out and returns them to the log in page')}>Sign out</span>
+            <span id="log-out" onClick={this.signOut.bind(this)}>Sign out</span>
             <div id="location" style={{ maxWidth: this.state.location ? '300px' : '130px'}}>
               <span>
                 <img src="images/map.png" />
@@ -70,8 +121,8 @@ class App extends Component {
           </div>
         </header>
 
-        {/*<Login />*/}
-        <Stories />
+        <Login signIn={this.signIn.bind(this)} />
+        {/*<Stories />*/}
 
         <footer className="App-footer">
           <span id="developed-by">Developed by Zach Coursey</span>
