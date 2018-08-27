@@ -90,6 +90,8 @@ class NewStory extends Component {
       button.style.filter = 'saturate(0)';
     });
     this.setState({
+      title: '',
+      text: '',
       categories: []
     });
     return this.props.publish(title, text, categories);
