@@ -65,6 +65,21 @@ class NewStory extends Component {
     });
   }
 
+  publishStory() {
+    const title = this.state.title;
+    const text = this.state.text;
+    const categories = this.state.categories;
+    document.querySelector('#newTitle').value = '';
+    document.querySelector('#newText').value = '';
+    document.querySelectorAll('.newCategory').forEach(button => {
+      button.style.filter = 'saturate(0)';
+    });
+    this.setState({
+      categories: []
+    });
+    return this.props.publish(title, text, categories);
+  }
+
   render() {
     const categoryNames = ['alert', 'business', 'traffic', 'recreation', 'other'];
     return (
@@ -77,7 +92,7 @@ class NewStory extends Component {
             <button className="newCategory" onClick={(e) => this.selectCategory.call(this, e.target)} style={{ background: this.categoryBackground(category) }}>{category.toUpperCase()}</button>
           )}
         </span>
-        <button id="publish" onClick={() => this.props.publish(this.state.title, this.state.text, this.state.categories)}>Publish</button>
+        <button id="publish" onClick={this.publishStory.bind(this)}>Publish</button>
       </li>
     );
   }
