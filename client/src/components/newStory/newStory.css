@@ -16,6 +16,10 @@
   padding: 3px;
 }
 
+.newStory > span {
+  font-weight: 400;
+}
+
 #newTitle {
   width: 42%;
   display: grid;

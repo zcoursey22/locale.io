@@ -71,7 +71,7 @@ class Story extends Component {
           <span id="likes" onClick={() => alert('displays likes for stories')}>{story.likes} likes</span>
           <span id="comments" onClick={() => alert('displays comments for stories')}>{story.comments} comments</span>
         </p>
-        <p id="text" style={{ maxHeight: this.state.expanded ? '120px' : '15px' }}>{story.text}</p>
+        <p id="text" style={{ maxHeight: this.state.expanded ? '120px' : '16px' }}>{story.text}</p>
         <span id="liked" onClick={this.like.bind(this)} style={{ color: this.state.liked ? '#7b7' : '#ccc'}}>
           LIKE
         </span>

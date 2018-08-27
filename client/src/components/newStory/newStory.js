@@ -100,7 +100,7 @@ class NewStory extends Component {
     return (
       <li className="newStory">
         <input id="newTitle" placeholder="Title" onChange={this.setTitle.bind(this)}></input>
-        <textarea id="newText" onChange={this.resizeTextarea.bind(this)} placeholder=""></textarea>
+        <textarea id="newText" onChange={this.resizeTextarea.bind(this)} placeholder="What's new?"></textarea>
         <span>
           Categories:&nbsp;
           {categoryNames.map((category) =>
