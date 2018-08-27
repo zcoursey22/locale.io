@@ -46,11 +46,29 @@ class Stories extends Component {
       });
   }
 
+  publish(title, text, categories) {
+    const newStory = {
+      title,
+      author: this.props.user.username,
+      text,
+      comments: 0,
+      likes: 0,
+      categories,
+      liked: false,
+      disliked: false,
+      time: new Date(),
+      latitude: this.props.latitude, longitude: this.props.longitude,
+    }
+    this.setState({
+      stories: this.state.stories.concat(newStory)
+    });
+  }
+
   render() {
     return (
       <div className="Stories">
         <ul id="story-list">
-          <NewStory />
+          <NewStory publish={this.publish.bind(this)} />
           {this.state.stories.map((story) =>
             <Story story={story} />
           )}

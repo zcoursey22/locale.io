@@ -6,6 +6,8 @@ class NewStory extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
+      text: '',
       categories: []
     };
   }
@@ -48,19 +50,34 @@ class NewStory extends Component {
     if (text.innerText.length % 5 === 0) {
       autosize(text);
     }
+    this.setText();
+  }
+
+  setTitle() {
+    this.setState({
+      title: document.querySelector('#newTitle').value
+    });
+  }
+
+  setText() {
+    this.setState({
+      text: document.querySelector('#newText').value
+    });
   }
 
   render() {
     const categoryNames = ['alert', 'business', 'traffic', 'recreation', 'other'];
     return (
       <li className="newStory">
-        <input id="newTitle" placeholder="Title"></input>
-        <textarea id="newText" onChange={this.resizeTextarea.bind(this)} placeholder="Text"></textarea>
+        <input id="newTitle" placeholder="Title" onChange={this.setTitle.bind(this)}></input>
+        <textarea id="newText" onChange={this.resizeTextarea.bind(this)} placeholder=""></textarea>
         <span>
+          Categories:&nbsp;
           {categoryNames.map((category) =>
             <button className="newCategory" onClick={(e) => this.selectCategory.call(this, e.target)} style={{ background: this.categoryBackground(category) }}>{category.toUpperCase()}</button>
           )}
         </span>
+        <button id="publish" onClick={() => this.props.publish(this.state.title, this.state.text, this.state.categories)}>Publish</button>
       </li>
     );
   }

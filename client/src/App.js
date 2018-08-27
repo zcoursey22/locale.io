@@ -26,10 +26,10 @@ class App extends Component {
   componentWillMount() {
     const options = {
       enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
+      timeout: 30000,
+      maximumAge: 60000
     };
-    navigator.geolocation.getCurrentPosition((pos) => {
+    navigator.geolocation.getCurrentPosition(pos => {
       this.setState({
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude
@@ -39,7 +39,7 @@ class App extends Component {
         .then(city => this.setState({
           location: city.results[0].formatted_address
         }));
-    }, null, options);
+    }, (err) => console.log(err), options);
   }
 
   componentDidMount() {
