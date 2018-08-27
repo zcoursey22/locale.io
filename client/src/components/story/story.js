@@ -19,7 +19,8 @@ class Story extends Component {
       business: '#69f',
       traffic: '#fc6',
       recreation: '#7b7',
-      other: '#b9f'
+      gossip: '#b9f',
+      untagged: '#888'
     }
     return categories[category];
   }

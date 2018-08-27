@@ -59,6 +59,9 @@ class Stories extends Component {
       time: new Date(),
       latitude: this.props.latitude, longitude: this.props.longitude,
     }
+    if (newStory.categories.length === 0) {
+      newStory.categories.push('untagged');
+    }
     this.setState({
       stories: this.state.stories.concat(newStory)
     });

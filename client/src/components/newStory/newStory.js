@@ -18,7 +18,7 @@ class NewStory extends Component {
       business: '#69f',
       traffic: '#fc6',
       recreation: '#7b7',
-      other: '#b9f'
+      gossip: '#b9f'
     }
     return categories[category];
   }
@@ -81,7 +81,7 @@ class NewStory extends Component {
   }
 
   render() {
-    const categoryNames = ['alert', 'business', 'traffic', 'recreation', 'other'];
+    const categoryNames = ['alert', 'business', 'traffic', 'recreation', 'gossip'];
     return (
       <li className="newStory">
         <input id="newTitle" placeholder="Title" onChange={this.setTitle.bind(this)}></input>
