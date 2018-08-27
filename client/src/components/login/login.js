@@ -21,7 +21,7 @@ class Login extends Component {
       <div className="Login">
         <div id="container">
           <h2>Welcome to <span>locale.io</span></h2>
-          <div id="forms" style={{ display: this.props.user.username === null ? 'block' : 'none'}}>
+          <div id="forms" style={{ display: this.props.user.username === null ? 'flex' : 'none'}}>
             <form style={{ flexBasis: this.state.signUp ? '25%' : '100%', padding: this.state.signUp ? '15px 3vw' : '15px 8vw' }} id="login-form">
               <input id="log-username" placeholder="Username" onClick={(e) => e.target.style.background = 'white'}></input>
               <input id="log-password" placeholder="Password" onClick={(e) => e.target.style.background = 'white'}></input>
