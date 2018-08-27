@@ -16,8 +16,6 @@ class Stories extends Component {
       .then(stories => {
         const closeStories = [];
         stories.forEach(story => {
-          console.log(story);
-          console.log(this.props);
           if (Math.abs(story.latitude - this.props.latitude) <= 0.3 && Math.abs(story.longitude - this.props.longitude) <= 0.3) {
             closeStories.push(story);
           }

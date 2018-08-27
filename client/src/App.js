@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import './App.css';
 import config from './config.js';
 import Stories from './components/stories/stories';
@@ -61,7 +62,7 @@ class App extends Component {
     }, 300);
   }
 
-  signIn() {
+  signIn(history) {
     const username = document.querySelector('#log-username');
     const password = document.querySelector('#log-password');
     let complete = true;
@@ -86,7 +87,7 @@ class App extends Component {
           this.setState({
             user: this.state.users[i]
           });
-          alert('User is routed to the story feed');
+          this.props.history.push('/stories');
           return;
         } else if (this.state.users[i].username === info.username) {
           alert('Incorrect password!');
@@ -127,8 +128,12 @@ class App extends Component {
           </div>
         </header>
 
-        <Login signIn={this.signIn.bind(this)} />
-        {/*<Stories latitude={this.state.latitude} longitude={this.state.longitude} />*/}
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" render={(props) => <Login signIn={this.signIn.bind(this)} />}/>
+            <Route path="/stories" render={(props) => <Stories latitude={this.state.latitude} longitude={this.state.longitude} />}/>
+          </Switch>
+        </BrowserRouter>
 
         <footer className="App-footer">
           <span id="developed-by">Developed by Zach Coursey</span>
