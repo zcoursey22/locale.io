@@ -4,11 +4,27 @@ import Stories from './components/stories/stories';
 import Login from './components/login/login';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {
+        email: 'zcoursey22@gmail.com',
+        username: 'zcoursey22',
+        password: 'pass1'
+      },
+      location: 'San Francisco, CA'
+    }
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">locale.io</h1>
+          <div id="user-panel" style={{ display: this.state.user ?  'block' : 'none' }}>
+            <span id="user">Hello, {this.state.user.username}</span>
+            <span id="location"><img src="images/map.png" />{this.state.location}</span>
+          </div>
         </header>
 
         {/*<Login />*/}
