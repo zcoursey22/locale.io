@@ -66,8 +66,23 @@ class NewStory extends Component {
   }
 
   publishStory() {
+    let complete = true;
     const title = this.state.title;
+    if (title === '') {
+      complete = false;
+      // const titleNode = document.querySelector('#newTitle');
+      // titleNode.style.background = 'ffeaea';
+    }
     const text = this.state.text;
+    if (text === '') {
+      complete = false;
+      // const textNode = document.querySelector('#newText');
+      // textNode.style.background = 'ffeaea';
+    }
+    if (!complete) {
+      alert('Fill out all fields to publish your story!');
+      return;
+    }
     const categories = this.state.categories;
     document.querySelector('#newTitle').value = '';
     document.querySelector('#newText').value = '';
