@@ -57,6 +57,10 @@
   transition: 0.1s;
 }
 
+#disliked {
+  margin-right: 12px;
+}
+
 #liked:hover, #disliked:hover {
   filter: brightness(0.95);
 }
@@ -73,7 +77,7 @@
   font-weight: 500;
   border: 1px solid #ccc;
   padding: 5px 8px;
-  margin-right: 5px;
+  margin: 3px;
   transition: 0.1s;
   cursor: pointer;
   border-radius: 3px;

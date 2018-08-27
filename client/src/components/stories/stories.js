@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './stories.css';
-import Story from '../story/story'
+import Story from '../story/story';
+import NewStory from '../newStory/newStory';
 
 class Stories extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class Stories extends Component {
     return (
       <div className="Stories">
         <ul id="story-list">
+          <NewStory />
           {this.state.stories.map((story) =>
             <Story story={story} />
           )}
