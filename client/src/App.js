@@ -15,6 +15,8 @@ class App extends Component {
         password: null
       },
       location: null,
+      latitude: null,
+      longitude: null,
       locationTemp: ''
     }
   }
@@ -26,6 +28,10 @@ class App extends Component {
       maximumAge: 0
     };
     navigator.geolocation.getCurrentPosition((pos) => {
+      this.setState({
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude
+      });
       location: fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.coords.latitude},${pos.coords.longitude}&result_type=locality&key=${config.googleMaps}`)
         .then(res => res.json())
         .then(city => this.setState({
@@ -122,7 +128,7 @@ class App extends Component {
         </header>
 
         <Login signIn={this.signIn.bind(this)} />
-        {/*<Stories />*/}
+        {/*<Stories latitude={this.state.latitude} longitude={this.state.longitude} />*/}
 
         <footer className="App-footer">
           <span id="developed-by">Developed by Zach Coursey</span>
