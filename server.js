@@ -2,6 +2,24 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 
+app.get('/api/users', (req, res) => {
+  const users = [
+    { username: 'zcoursey22',
+      password: 'pass1',
+      email: 'zcoursey22@gmail.com',
+    },
+    { username: 'erikad1521',
+      password: 'pass2',
+      email: 'erikad1521@gmail.com',
+    },
+    { username: 'bradcollins',
+      password: 'pass3',
+      email: 'bradcollins@gmail.com',
+    }
+  ];
+  res.json(users);
+});
+
 app.get('/api/stories', (req, res) => {
   const stories = [
     { title: 'New Dog Park Opening Soon', author: 'Zach Coursey', comments: 1, likes: 4, categories: ['recreation', 'business'], liked: false, disliked: false, time: new Date('August 25, 2018 12:24:53'),

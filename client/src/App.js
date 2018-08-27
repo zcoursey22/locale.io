@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Stories from './components/stories/stories';
+import Login from './components/login/login';
 
 class App extends Component {
   render() {
@@ -10,6 +11,7 @@ class App extends Component {
           <h1 className="App-title">locale.io</h1>
         </header>
 
+        {/*<Login />*/}
         <Stories />
 
         <footer className="App-footer">

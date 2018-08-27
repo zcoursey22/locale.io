@@ -8,5 +8,13 @@
 }
 
 body {
+  position: relative;
   background: linear-gradient(#5af, #49e);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100%;
+}
+
+html {
+  height: 100%;
 }
