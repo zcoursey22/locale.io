@@ -56,7 +56,14 @@ class Story extends Component {
     const story = this.state.story;
     return (
       <li className="story">
-        <span id="time">{moment(story.time).format('MMM Do YYYY, h:mm a')}</span>
+        <span id="date-time">
+          <p id="date">
+            {moment(story.time).format('MMM D, YYYY')}
+          </p>
+          <p id="time">
+            {moment(story.time).format('h:mm a')}
+          </p>
+        </span>
         <h2 id="title">{story.title}</h2>
         <h3 id="author">by <span id="author-name" onClick={() => alert('links to author\'s public profile')}>{story.author}</span></h3>
         <p>

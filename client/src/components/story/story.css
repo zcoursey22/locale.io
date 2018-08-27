@@ -2,7 +2,7 @@
   position: relative;
   margin: 0 auto;
   margin-bottom: 15px;
-  padding: 10px;
+  padding: 12px;
   width: 65vw;
   min-width: 300px;
   list-style: none;
@@ -34,9 +34,20 @@
   margin-left: 5px;
 }
 
-#time {
-  font-weight: 400;
+#date-time {
   float: right;
+  text-align: right;
+}
+
+#date-time > p {
+  font-weight: 400;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+#time {
+  font-weight: 300 !important;
+  font-size: 17px !important;
 }
 
 #liked, #disliked {
