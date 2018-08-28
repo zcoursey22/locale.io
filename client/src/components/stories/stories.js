@@ -12,37 +12,49 @@ class Stories extends Component {
     };
   }
 
-  // componentWillReceiveProps() {
-  //   fetch('/api/stories')
-  //     .then(res => res.json())
-  //     .then(stories => {
-  //       const closeStories = [];
-  //       stories.forEach(story => {
-  //         if (Math.abs(story.latitude - this.props.latitude) <= 0.3 && Math.abs(story.longitude - this.props.longitude) <= 0.3) {
-  //           closeStories.push(story);
-  //         }
-  //       });
-  //       this.setState({
-  //         stories: closeStories
-  //       });
-  //     });
-  // }
+  componentWillReceiveProps() {
+    axios.get('/api/stories')
+    .then(stories => {
+      const formattedStories = stories.data.map(story => {
+        return {
+          title: story.title,
+          text: story.text,
+          time: story.time,
+          likes: 0,
+          comments: 0,
+          latitude: Number(story.latitude),
+          longitude: Number(story.longitude),
+          categories: JSON.parse(story.categories),
+          author: 'TO DO'
+        };
+      });
+      this.setState({
+        stories: formattedStories
+      });
+    });
+  }
 
   componentDidMount() {
     if (this.props.user.username === null) {
       this.props.history.push('/');
     }
-    fetch('/api/stories')
-      .then(res => res.json())
+    axios.get('/api/stories')
       .then(stories => {
-        const closeStories = [];
-        stories.forEach(story => {
-          if (Math.abs(story.latitude - this.props.latitude) <= 0.3 && Math.abs(story.longitude - this.props.longitude) <= 0.3) {
-            closeStories.push(story);
-          }
+        const formattedStories = stories.data.map(story => {
+          return {
+            title: story.title,
+            text: story.text,
+            time: story.time,
+            likes: 0,
+            comments: 0,
+            latitude: Number(story.latitude),
+            longitude: Number(story.longitude),
+            categories: JSON.parse(story.categories),
+            author: 'TO DO'
+          };
         });
         this.setState({
-          stories: closeStories
+          stories: formattedStories
         });
       });
   }
