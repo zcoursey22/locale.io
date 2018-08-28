@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './stories.css';
 import Story from '../story/story';
 import NewStory from '../newStory/newStory';
+import axios from 'axios';
 
 class Stories extends Component {
   constructor(props) {
@@ -11,21 +12,21 @@ class Stories extends Component {
     };
   }
 
-  componentWillReceiveProps() {
-    fetch('/api/stories')
-      .then(res => res.json())
-      .then(stories => {
-        const closeStories = [];
-        stories.forEach(story => {
-          if (Math.abs(story.latitude - this.props.latitude) <= 0.3 && Math.abs(story.longitude - this.props.longitude) <= 0.3) {
-            closeStories.push(story);
-          }
-        });
-        this.setState({
-          stories: closeStories
-        });
-      });
-  }
+  // componentWillReceiveProps() {
+  //   fetch('/api/stories')
+  //     .then(res => res.json())
+  //     .then(stories => {
+  //       const closeStories = [];
+  //       stories.forEach(story => {
+  //         if (Math.abs(story.latitude - this.props.latitude) <= 0.3 && Math.abs(story.longitude - this.props.longitude) <= 0.3) {
+  //           closeStories.push(story);
+  //         }
+  //       });
+  //       this.setState({
+  //         stories: closeStories
+  //       });
+  //     });
+  // }
 
   componentDidMount() {
     if (this.props.user.username === null) {
@@ -57,14 +58,14 @@ class Stories extends Component {
       liked: false,
       disliked: false,
       time: new Date(),
-      latitude: this.props.latitude, longitude: this.props.longitude,
+      latitude: Number(this.props.latitude.toFixed(3)),
+      longitude: Number(this.props.longitude.toFixed(3)),
     }
     if (newStory.categories.length === 0) {
       newStory.categories.push('untagged');
     }
-    this.setState({
-      stories: this.state.stories.concat(newStory)
-    });
+    axios.post('/api/stories', newStory)
+      .then(res => newStory);
   }
 
   render() {

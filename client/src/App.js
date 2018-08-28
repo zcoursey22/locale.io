@@ -164,7 +164,6 @@ class App extends Component {
       }
     }
     alert('Account successfully created!');
-    // add info to users array
     axios.post('/api/users', info)
       .then(res => info);
     window.location.reload();
