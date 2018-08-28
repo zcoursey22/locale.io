@@ -1,23 +1,22 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
+const db = require('./db/db');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/api/users', (req, res) => {
-  const users = [
-    { username: 'zcoursey22',
-      password: 'pass1',
-      email: 'zcoursey22@gmail.com',
-    },
-    { username: 'erikad1521',
-      password: 'pass2',
-      email: 'erikad1521@gmail.com',
-    },
-    { username: 'bradcollins',
-      password: 'pass3',
-      email: 'bradcollins@gmail.com',
-    }
-  ];
-  res.json(users);
+  db.query('SELECT * FROM users', (err, data) => {
+    res.json(data.rows);
+  });
+});
+
+app.post('/api/users', (req, res) => {
+  db.query(`INSERT INTO users(email,username,password) VALUES('${req.body.email}','${req.body.username}','${req.body.password}')`, err => {
+    if (err) console.log(err);
+  });
 });
 
 app.get('/api/stories', (req, res) => {

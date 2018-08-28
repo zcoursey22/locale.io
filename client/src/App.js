@@ -4,6 +4,7 @@ import './App.css';
 import config from './config.js';
 import Stories from './components/stories/stories';
 import Login from './components/login/login';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -43,9 +44,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/users')
-      .then(res => res.json())
-      .then(users => this.setState({users}));
+    axios.get('/api/users')
+      .then(users => this.setState({
+        users: users.data
+      }));
 
     const fetching = setInterval(() => {
       if (this.state.location !== null) {
@@ -163,6 +165,8 @@ class App extends Component {
     }
     alert('Account successfully created!');
     // add info to users array
+    axios.post('/api/users', info)
+      .then(res => info);
     window.location.reload();
   }
 
