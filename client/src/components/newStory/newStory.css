@@ -71,7 +71,7 @@
   transition: background 0.15s, transform 0.1s;
   font-weight: 400;
   font-size: 18px;
-  padding: 4px 15px;
+  padding: 4px 12px;
 }
 
 #publish:hover {

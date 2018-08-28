@@ -26,7 +26,7 @@ class Login extends Component {
               <input id="log-username" placeholder="Username" onClick={(e) => e.target.style.background = 'white'}></input>
               <input id="log-password" placeholder="Password" onClick={(e) => e.target.style.background = 'white'}></input>
               <button type="button" onClick={this.props.signIn}>Log In</button>
-              <p onClick={this.showSignUp.bind(this)}>Don't have an account?<br />Sign up!</p>
+              <p onClick={this.showSignUp.bind(this)} style={{ opacity: this.state.signUp ? 0 : 1}}>Don't have an account?<br />Sign up!</p>
             </form>
             <form id="sign-up-form" className={this.state.signUp ? 'expanded' : ''}>
               <input placeholder="Email"></input>

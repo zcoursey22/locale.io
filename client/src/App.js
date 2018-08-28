@@ -61,6 +61,25 @@ class App extends Component {
         });
       }
     }, 300);
+
+    setInterval(() => {
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 30000,
+        maximumAge: 60000
+      };
+      navigator.geolocation.getCurrentPosition(pos => {
+        this.setState({
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude
+        });
+        location: fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.coords.latitude},${pos.coords.longitude}&result_type=locality&key=${config.googleMaps}`)
+          .then(res => res.json())
+          .then(city => this.setState({
+            location: city.results[0].formatted_address
+          }));
+      }, (err) => console.log(err), options);
+    }, 10000);
   }
 
   signIn(history) {
