@@ -29,10 +29,10 @@ class Login extends Component {
               <p onClick={this.showSignUp.bind(this)} style={{ opacity: this.state.signUp ? 0 : 1}}>Don't have an account?<br />Sign up!</p>
             </form>
             <form id="sign-up-form" className={this.state.signUp ? 'expanded' : ''}>
-              <input placeholder="Email"></input>
-              <input placeholder="Username"></input>
-              <input placeholder="Password"></input>
-              <button type="button">Join</button>
+              <input id="sign-up-email" placeholder="Email" onClick={(e) => e.target.style.background = ''}></input>
+              <input id="sign-up-username" placeholder="Username" onClick={(e) => e.target.style.background = ''}></input>
+              <input id="sign-up-password" placeholder="Password" onClick={(e) => e.target.style.background = ''}></input>
+              <button type="button" onClick={this.props.signUp}>Join</button>
             </form>
           </div>
           <div id="already-logged-in" style={{ display: this.props.user.username === null ? 'none' : 'block'}}>

@@ -118,6 +118,54 @@ class App extends Component {
     alert('User not found!');
   }
 
+  validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  signUp(history) {
+    const email = document.querySelector('#sign-up-email');
+    const username = document.querySelector('#sign-up-username');
+    const password = document.querySelector('#sign-up-password');
+    let complete = true;
+    if (email.value === '') {
+      email.style.background = 'rgba(255,100,100,0.5)';
+      complete = false;
+    }
+    if (!this.validateEmail(email.value)) {
+      email.style.background = 'rgba(255,225,100,0.5)';
+      complete = false;
+    }
+    if (username.value === '') {
+      username.style.background = 'rgba(255,100,100,0.5)';
+      complete = false;
+    }
+    if (password.value === '') {
+      password.style.background = 'rgba(255,100,100,0.5)';
+      complete = false;
+    }
+    if (!complete) {
+      return;
+    }
+    const info = {
+      email: email.value,
+      username: username.value,
+      password: password.value
+    }
+    for (let i = 0; i < this.state.users.length; i++) {
+      if (this.state.users[i].email === info.email) {
+        alert('A user with this email already exists!');
+        return;
+      } else if (this.state.users[i].username === info.username) {
+        alert('This username is already taken!');
+        return;
+      }
+    }
+    alert('Account successfully created!');
+    // add info to users array
+    window.location.reload();
+  }
+
   signOut() {
     window.localStorage.removeItem('user');
     this.setState({
@@ -150,7 +198,7 @@ class App extends Component {
         </header>
 
         <Switch>
-          <Route exact path="/" render={(props) => <Login signIn={this.signIn.bind(this)} user={this.state.user} />}/>
+          <Route exact path="/" render={(props) => <Login signIn={this.signIn.bind(this)} signUp={this.signUp.bind(this)} user={this.state.user} />}/>
           <Route path="/stories" render={(props) => <Stories latitude={this.state.latitude} longitude={this.state.longitude} user={this.state.user} history={this.props.history} />}/>
         </Switch>
 
