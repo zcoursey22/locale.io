@@ -72,7 +72,7 @@ class Stories extends Component {
       <div className="Stories">
         <ul id="story-list">
           <NewStory publish={this.publish.bind(this)} />
-          {this.state.stories.map((story) =>
+          {this.state.stories.sort((a,b) => Date.parse(b.time) - Date.parse(a.time)).map((story) =>
             <Story story={story} />
           )}
         </ul>
