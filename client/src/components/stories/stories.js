@@ -25,7 +25,7 @@ class Stories extends Component {
           latitude: Number(story.latitude),
           longitude: Number(story.longitude),
           categories: JSON.parse(story.categories),
-          author: 'TO DO'
+          author: story.username
         };
       });
       this.setState({
@@ -50,7 +50,7 @@ class Stories extends Component {
             latitude: Number(story.latitude),
             longitude: Number(story.longitude),
             categories: JSON.parse(story.categories),
-            author: 'TO DO'
+            author: story.username
           };
         });
         this.setState({
@@ -78,6 +78,7 @@ class Stories extends Component {
     }
     axios.post('/api/stories', newStory)
       .then(res => newStory);
+      window.location.reload();
   }
 
   render() {

@@ -20,7 +20,7 @@ app.post('/api/users', (req, res) => {
 });
 
 app.get('/api/stories', (req, res) => {
-  db.query('SELECT * FROM stories', (err, data) => {
+  db.query('SELECT * FROM stories,users WHERE users.id=stories.user_id', (err, data) => {
     res.json(data.rows);
   });
 });
